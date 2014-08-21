@@ -11,11 +11,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
 	private TextView jokeTextView;
+	private Button btnRefreshJoke;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,17 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 
 		jokeTextView = (TextView) findViewById(R.id.jokeTextView);
+		btnRefreshJoke = (Button) findViewById(R.id.btnRefreshJoke);
+		btnRefreshJoke.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				generateRandomJoke();
+			}
+		});
+	}
+
+	private void generateRandomJoke() {
 		try {
 			jokeTextView.setText(getRandomJoke());
 		} catch (ExecutionException | InterruptedException | JSONException e) {
